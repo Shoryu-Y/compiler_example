@@ -115,7 +115,7 @@ typedef int YYSTYPE;
 
 
 /* Line 216 of yacc.c.  */
-#line 119 "express.tab.c"
+#line 119 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -328,18 +328,18 @@ union yyalloc
 #endif
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  8
+#define YYFINAL  10
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   19
+#define YYLAST   24
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  13
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  5
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  12
+#define YYNRULES  13
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  23
+#define YYNSTATES  25
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
@@ -385,7 +385,7 @@ static const yytype_uint8 yytranslate[] =
 static const yytype_uint8 yyprhs[] =
 {
        0,     0,     3,     6,    10,    14,    16,    20,    24,    28,
-      32,    34,    38
+      32,    34,    38,    41
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
@@ -394,14 +394,15 @@ static const yytype_int8 yyrhs[] =
       14,     0,    -1,    15,     4,    -1,    15,     5,    16,    -1,
       15,     6,    16,    -1,    16,    -1,    16,     7,    17,    -1,
       16,     8,    17,    -1,    16,     9,    17,    -1,    16,    10,
-      17,    -1,    17,    -1,    11,    15,    12,    -1,     3,    -1
+      17,    -1,    17,    -1,    11,    15,    12,    -1,     6,    15,
+      -1,     3,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
        0,    11,    11,    14,    15,    16,    19,    20,    21,    22,
-      23,    26,    27
+      23,    26,    27,    28
 };
 #endif
 
@@ -430,14 +431,14 @@ static const yytype_uint16 yytoknum[] =
 static const yytype_uint8 yyr1[] =
 {
        0,    13,    14,    15,    15,    15,    16,    16,    16,    16,
-      16,    17,    17
+      16,    17,    17,    17
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
        0,     2,     2,     3,     3,     1,     3,     3,     3,     3,
-       1,     3,     1
+       1,     3,     2,     1
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -445,31 +446,31 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,    12,     0,     0,     0,     5,    10,     0,     1,     2,
-       0,     0,     0,     0,     0,     0,    11,     3,     4,     6,
-       7,     8,     9
+       0,    13,     0,     0,     0,     0,     5,    10,    12,     0,
+       1,     2,     0,     0,     0,     0,     0,     0,    11,     3,
+       4,     6,     7,     8,     9
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     3,     4,     5,     6
+      -1,     4,     5,     6,     7
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -10
+#define YYPACT_NINF -5
 static const yytype_int8 yypact[] =
 {
-      -3,   -10,    -3,     9,     1,     4,   -10,    -2,   -10,   -10,
-      -3,    -3,    -3,    -3,    -3,    -3,   -10,     4,     4,   -10,
-     -10,   -10,   -10
+      -3,    -5,    -3,    -3,     9,    16,     5,    -5,    -4,    -1,
+      -5,    -5,    -3,    -3,    -3,    -3,    -3,    -3,    -5,     5,
+       5,    -5,    -5,    -5,    -5
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -10,   -10,    17,    -9,     3
+      -5,    -5,     4,    11,     2
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -479,23 +480,25 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-       1,    17,    18,    10,    11,     9,    10,    11,     2,     8,
-      16,    12,    13,    14,    15,    19,    20,    21,    22,     7
+       1,    12,    13,     2,    12,    13,     8,     9,     3,    10,
+       0,    18,    14,    15,    16,    17,    21,    22,    23,    24,
+      11,    12,    13,    19,    20
 };
 
-static const yytype_uint8 yycheck[] =
+static const yytype_int8 yycheck[] =
 {
-       3,    10,    11,     5,     6,     4,     5,     6,    11,     0,
-      12,     7,     8,     9,    10,    12,    13,    14,    15,     2
+       3,     5,     6,     6,     5,     6,     2,     3,    11,     0,
+      -1,    12,     7,     8,     9,    10,    14,    15,    16,    17,
+       4,     5,     6,    12,    13
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,    11,    14,    15,    16,    17,    15,     0,     4,
-       5,     6,     7,     8,     9,    10,    12,    16,    16,    17,
-      17,    17,    17
+       0,     3,     6,    11,    14,    15,    16,    17,    15,    15,
+       0,     4,     5,     6,     7,     8,     9,    10,    12,    16,
+      16,    17,    17,    17,    17
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1311,47 +1314,52 @@ yyreduce:
     {
         case 2:
 #line 11 "express.y"
-    { printf("result: %d\n", (yyvsp[(1) - (2)])) ;}
+    { printf("result: %d\n", (yyvsp[(1) - (2)])) }
     break;
 
   case 3:
 #line 14 "express.y"
-    { (yyval) = (yyvsp[(1) - (3)]) + (yyvsp[(3) - (3)]) ;}
+    { (yyval) = (yyvsp[(1) - (3)]) + (yyvsp[(3) - (3)]) }
     break;
 
   case 4:
 #line 15 "express.y"
-    { (yyval) = (yyvsp[(1) - (3)]) - (yyvsp[(3) - (3)]) ;}
+    { (yyval) = (yyvsp[(1) - (3)]) - (yyvsp[(3) - (3)]) }
     break;
 
   case 6:
 #line 19 "express.y"
-    { (yyval) = (yyvsp[(1) - (3)]) * (yyvsp[(3) - (3)]) ;}
+    { (yyval) = (yyvsp[(1) - (3)]) * (yyvsp[(3) - (3)]) }
     break;
 
   case 7:
 #line 20 "express.y"
-    { (yyval) = (yyvsp[(1) - (3)]) / (yyvsp[(3) - (3)]) ;}
+    { (yyval) = (yyvsp[(1) - (3)]) / (yyvsp[(3) - (3)]) }
     break;
 
   case 8:
 #line 21 "express.y"
-    { (yyval) = (yyvsp[(1) - (3)]) % (yyvsp[(3) - (3)]) ;}
+    { (yyval) = (yyvsp[(1) - (3)]) % (yyvsp[(3) - (3)]) }
     break;
 
   case 9:
 #line 22 "express.y"
-    { (yyval) = pow((yyvsp[(1) - (3)]), (yyvsp[(3) - (3)])) ;}
+    { (yyval) = pow((yyvsp[(1) - (3)]), (yyvsp[(3) - (3)])) }
     break;
 
   case 11:
 #line 26 "express.y"
-    { (yyval) = (yyvsp[(2) - (3)]); ;}
+    { (yyval) = (yyvsp[(2) - (3)]); }
+    break;
+
+  case 12:
+#line 27 "express.y"
+    { (yyval) =- (yyvsp[(2) - (2)]); }
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1355 "express.tab.c"
+#line 1363 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1565,7 +1573,7 @@ yyreturn:
 }
 
 
-#line 29 "express.y"
+#line 30 "express.y"
 
 
 #include <ctype.h>
@@ -1580,11 +1588,10 @@ void yyerror(const char *s) {
     printf("yacc error: %s\n", s);
 }
 
-int yylex()
-{
-    int c;
-
-    while ((c = getchar()) == ' ');
+int yylex() {
+    printf("yylex\n");
+    int c = getchar();
+    while (c == ' ') {}
     if (isdigit(c)) {
         yylval = c - '0';
         while (isdigit(c = getchar()))

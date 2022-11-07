@@ -31,19 +31,19 @@ factor  : '(' expr ')'  { $$ = $2; }
 #include <ctype.h>
 #include <stdio.h>
 
-main() {
+int main() {
     yyparse();
+    return 0;
 }
 
 void yyerror(const char *s) {
     printf("yacc error: %s\n", s);
 }
 
-int yylex()
-{
-    int c;
-
-    while ((c = getchar()) == ' ');
+int yylex() {
+    printf("yylex\n");
+    int c = getchar();
+    while (c == ' ') {}
     if (isdigit(c)) {
         yylval = c - '0';
         while (isdigit(c = getchar()))
