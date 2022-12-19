@@ -3,10 +3,12 @@
     #include <math.h>
 
     #define M_SIZE  16
-    double  Memory[M_SIZE]
-    // int  yylex(void);
+    double  Memory[M_SIZE];
+    int  yylex(void);
     void yyerror(const char *s);
 %}
+
+%start line
 
 %union{
     int     ival;
@@ -28,7 +30,8 @@
 %right  UMINUS
 
 %%
-line    :   line    expr    '\n'    { printf("result: %f\n", $2); }
+line    :   
+        |   line    expr    '\n'    { printf("result: %f\n", $2); }
         |   line    error   '\n'    { yyerrok; }
         ;
 

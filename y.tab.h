@@ -39,17 +39,37 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     NUM = 258
+     MEM = 258,
+     EXP = 259,
+     LOG = 260,
+     SQRT = 261,
+     INTC = 262,
+     REALC = 263,
+     UMINUS = 264
    };
 #endif
 /* Tokens.  */
-#define NUM 258
+#define MEM 258
+#define EXP 259
+#define LOG 260
+#define SQRT 261
+#define INTC 262
+#define REALC 263
+#define UMINUS 264
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+typedef union YYSTYPE
+#line 13 "express.y"
+{
+    int     ival;
+    double  rval;
+}
+/* Line 1529 of yacc.c.  */
+#line 72 "y.tab.h"
+	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 # define YYSTYPE_IS_TRIVIAL 1

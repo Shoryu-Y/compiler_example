@@ -2,274 +2,595 @@ Grammar
 
     0 $accept: line $end
 
-    1 line: expr '\n'
+    1 line: /* empty */
+    2     | line expr '\n'
+    3     | line error '\n'
 
-    2 expr: expr '+' term
-    3     | expr '-' term
-    4     | term
+    4 expr: mcell '=' expr
+    5     | expr '+' expr
+    6     | expr '-' expr
+    7     | expr '*' expr
+    8     | expr '/' expr
+    9     | expr '^' expr
+   10     | '-' expr
+   11     | '(' expr ')'
+   12     | LOG '(' expr ')'
+   13     | EXP '(' expr ')'
+   14     | SQRT '(' expr ')'
+   15     | mcell
+   16     | INTC
+   17     | REALC
 
-    5 term: term '*' factor
-    6     | term '/' factor
-    7     | term '%' factor
-    8     | term '^' factor
-    9     | factor
-
-   10 factor: '(' expr ')'
-   11       | NUM
+   18 mcell: MEM '[' INTC ']'
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
-'\n' (10) 1
-'%' (37) 7
-'(' (40) 10
-')' (41) 10
-'*' (42) 5
-'+' (43) 2
-'-' (45) 3
-'/' (47) 6
-'^' (94) 8
-error (256)
-NUM (258) 11
+'\n' (10) 2 3
+'(' (40) 11 12 13 14
+')' (41) 11 12 13 14
+'*' (42) 7
+'+' (43) 5
+'-' (45) 6 10
+'/' (47) 8
+'=' (61) 4
+'[' (91) 18
+']' (93) 18
+'^' (94) 9
+error (256) 3
+MEM (258) 18
+EXP (259) 13
+LOG (260) 12
+SQRT (261) 14
+INTC (262) 16 18
+REALC (263) 17
+UMINUS (264)
 
 
 Nonterminals, with rules where they appear
 
-$accept (13)
+$accept (21)
     on left: 0
-line (14)
-    on left: 1, on right: 0
-expr (15)
-    on left: 2 3 4, on right: 1 2 3 10
-term (16)
-    on left: 5 6 7 8 9, on right: 2 3 4 5 6 7 8
-factor (17)
-    on left: 10 11, on right: 5 6 7 8 9
+line (22)
+    on left: 1 2 3, on right: 0 2 3
+expr (23)
+    on left: 4 5 6 7 8 9 10 11 12 13 14 15 16 17, on right: 2 4 5 6
+    7 8 9 10 11 12 13 14
+mcell (24)
+    on left: 18, on right: 4 15
 
 
 state 0
 
     0 $accept: . line $end
 
-    NUM  shift, and go to state 1
-    '('  shift, and go to state 2
+    $default  reduce using rule 1 (line)
 
-    line    go to state 3
-    expr    go to state 4
-    term    go to state 5
-    factor  go to state 6
+    line  go to state 1
 
 
 state 1
 
-   11 factor: NUM .
+    0 $accept: line . $end
+    2 line: line . expr '\n'
+    3     | line . error '\n'
 
-    $default  reduce using rule 11 (factor)
+    $end   shift, and go to state 2
+    error  shift, and go to state 3
+    MEM    shift, and go to state 4
+    EXP    shift, and go to state 5
+    LOG    shift, and go to state 6
+    SQRT   shift, and go to state 7
+    INTC   shift, and go to state 8
+    REALC  shift, and go to state 9
+    '-'    shift, and go to state 10
+    '('    shift, and go to state 11
+
+    expr   go to state 12
+    mcell  go to state 13
 
 
 state 2
-
-   10 factor: '(' . expr ')'
-
-    NUM  shift, and go to state 1
-    '('  shift, and go to state 2
-
-    expr    go to state 7
-    term    go to state 5
-    factor  go to state 6
-
-
-state 3
-
-    0 $accept: line . $end
-
-    $end  shift, and go to state 8
-
-
-state 4
-
-    1 line: expr . '\n'
-    2 expr: expr . '+' term
-    3     | expr . '-' term
-
-    '\n'  shift, and go to state 9
-    '+'   shift, and go to state 10
-    '-'   shift, and go to state 11
-
-
-state 5
-
-    4 expr: term .
-    5 term: term . '*' factor
-    6     | term . '/' factor
-    7     | term . '%' factor
-    8     | term . '^' factor
-
-    '*'  shift, and go to state 12
-    '/'  shift, and go to state 13
-    '%'  shift, and go to state 14
-    '^'  shift, and go to state 15
-
-    $default  reduce using rule 4 (expr)
-
-
-state 6
-
-    9 term: factor .
-
-    $default  reduce using rule 9 (term)
-
-
-state 7
-
-    2 expr: expr . '+' term
-    3     | expr . '-' term
-   10 factor: '(' expr . ')'
-
-    '+'  shift, and go to state 10
-    '-'  shift, and go to state 11
-    ')'  shift, and go to state 16
-
-
-state 8
 
     0 $accept: line $end .
 
     $default  accept
 
 
+state 3
+
+    3 line: line error . '\n'
+
+    '\n'  shift, and go to state 14
+
+
+state 4
+
+   18 mcell: MEM . '[' INTC ']'
+
+    '['  shift, and go to state 15
+
+
+state 5
+
+   13 expr: EXP . '(' expr ')'
+
+    '('  shift, and go to state 16
+
+
+state 6
+
+   12 expr: LOG . '(' expr ')'
+
+    '('  shift, and go to state 17
+
+
+state 7
+
+   14 expr: SQRT . '(' expr ')'
+
+    '('  shift, and go to state 18
+
+
+state 8
+
+   16 expr: INTC .
+
+    $default  reduce using rule 16 (expr)
+
+
 state 9
 
-    1 line: expr '\n' .
+   17 expr: REALC .
 
-    $default  reduce using rule 1 (line)
+    $default  reduce using rule 17 (expr)
 
 
 state 10
 
-    2 expr: expr '+' . term
+   10 expr: '-' . expr
 
-    NUM  shift, and go to state 1
-    '('  shift, and go to state 2
+    MEM    shift, and go to state 4
+    EXP    shift, and go to state 5
+    LOG    shift, and go to state 6
+    SQRT   shift, and go to state 7
+    INTC   shift, and go to state 8
+    REALC  shift, and go to state 9
+    '-'    shift, and go to state 10
+    '('    shift, and go to state 11
 
-    term    go to state 17
-    factor  go to state 6
+    expr   go to state 19
+    mcell  go to state 13
 
 
 state 11
 
-    3 expr: expr '-' . term
+   11 expr: '(' . expr ')'
 
-    NUM  shift, and go to state 1
-    '('  shift, and go to state 2
+    MEM    shift, and go to state 4
+    EXP    shift, and go to state 5
+    LOG    shift, and go to state 6
+    SQRT   shift, and go to state 7
+    INTC   shift, and go to state 8
+    REALC  shift, and go to state 9
+    '-'    shift, and go to state 10
+    '('    shift, and go to state 11
 
-    term    go to state 18
-    factor  go to state 6
+    expr   go to state 20
+    mcell  go to state 13
 
 
 state 12
 
-    5 term: term '*' . factor
+    2 line: line expr . '\n'
+    5 expr: expr . '+' expr
+    6     | expr . '-' expr
+    7     | expr . '*' expr
+    8     | expr . '/' expr
+    9     | expr . '^' expr
 
-    NUM  shift, and go to state 1
-    '('  shift, and go to state 2
-
-    factor  go to state 19
+    '+'   shift, and go to state 21
+    '-'   shift, and go to state 22
+    '*'   shift, and go to state 23
+    '/'   shift, and go to state 24
+    '^'   shift, and go to state 25
+    '\n'  shift, and go to state 26
 
 
 state 13
 
-    6 term: term '/' . factor
+    4 expr: mcell . '=' expr
+   15     | mcell .
 
-    NUM  shift, and go to state 1
-    '('  shift, and go to state 2
+    '='  shift, and go to state 27
 
-    factor  go to state 20
+    $default  reduce using rule 15 (expr)
 
 
 state 14
 
-    7 term: term '%' . factor
+    3 line: line error '\n' .
 
-    NUM  shift, and go to state 1
-    '('  shift, and go to state 2
-
-    factor  go to state 21
+    $default  reduce using rule 3 (line)
 
 
 state 15
 
-    8 term: term '^' . factor
+   18 mcell: MEM '[' . INTC ']'
 
-    NUM  shift, and go to state 1
-    '('  shift, and go to state 2
-
-    factor  go to state 22
+    INTC  shift, and go to state 28
 
 
 state 16
 
-   10 factor: '(' expr ')' .
+   13 expr: EXP '(' . expr ')'
 
-    $default  reduce using rule 10 (factor)
+    MEM    shift, and go to state 4
+    EXP    shift, and go to state 5
+    LOG    shift, and go to state 6
+    SQRT   shift, and go to state 7
+    INTC   shift, and go to state 8
+    REALC  shift, and go to state 9
+    '-'    shift, and go to state 10
+    '('    shift, and go to state 11
+
+    expr   go to state 29
+    mcell  go to state 13
 
 
 state 17
 
-    2 expr: expr '+' term .
-    5 term: term . '*' factor
-    6     | term . '/' factor
-    7     | term . '%' factor
-    8     | term . '^' factor
+   12 expr: LOG '(' . expr ')'
 
-    '*'  shift, and go to state 12
-    '/'  shift, and go to state 13
-    '%'  shift, and go to state 14
-    '^'  shift, and go to state 15
+    MEM    shift, and go to state 4
+    EXP    shift, and go to state 5
+    LOG    shift, and go to state 6
+    SQRT   shift, and go to state 7
+    INTC   shift, and go to state 8
+    REALC  shift, and go to state 9
+    '-'    shift, and go to state 10
+    '('    shift, and go to state 11
 
-    $default  reduce using rule 2 (expr)
+    expr   go to state 30
+    mcell  go to state 13
 
 
 state 18
 
-    3 expr: expr '-' term .
-    5 term: term . '*' factor
-    6     | term . '/' factor
-    7     | term . '%' factor
-    8     | term . '^' factor
+   14 expr: SQRT '(' . expr ')'
 
-    '*'  shift, and go to state 12
-    '/'  shift, and go to state 13
-    '%'  shift, and go to state 14
-    '^'  shift, and go to state 15
+    MEM    shift, and go to state 4
+    EXP    shift, and go to state 5
+    LOG    shift, and go to state 6
+    SQRT   shift, and go to state 7
+    INTC   shift, and go to state 8
+    REALC  shift, and go to state 9
+    '-'    shift, and go to state 10
+    '('    shift, and go to state 11
 
-    $default  reduce using rule 3 (expr)
+    expr   go to state 31
+    mcell  go to state 13
 
 
 state 19
 
-    5 term: term '*' factor .
+    5 expr: expr . '+' expr
+    6     | expr . '-' expr
+    7     | expr . '*' expr
+    8     | expr . '/' expr
+    9     | expr . '^' expr
+   10     | '-' expr .
 
-    $default  reduce using rule 5 (term)
+    $default  reduce using rule 10 (expr)
 
 
 state 20
 
-    6 term: term '/' factor .
+    5 expr: expr . '+' expr
+    6     | expr . '-' expr
+    7     | expr . '*' expr
+    8     | expr . '/' expr
+    9     | expr . '^' expr
+   11     | '(' expr . ')'
 
-    $default  reduce using rule 6 (term)
+    '+'  shift, and go to state 21
+    '-'  shift, and go to state 22
+    '*'  shift, and go to state 23
+    '/'  shift, and go to state 24
+    '^'  shift, and go to state 25
+    ')'  shift, and go to state 32
 
 
 state 21
 
-    7 term: term '%' factor .
+    5 expr: expr '+' . expr
 
-    $default  reduce using rule 7 (term)
+    MEM    shift, and go to state 4
+    EXP    shift, and go to state 5
+    LOG    shift, and go to state 6
+    SQRT   shift, and go to state 7
+    INTC   shift, and go to state 8
+    REALC  shift, and go to state 9
+    '-'    shift, and go to state 10
+    '('    shift, and go to state 11
+
+    expr   go to state 33
+    mcell  go to state 13
 
 
 state 22
 
-    8 term: term '^' factor .
+    6 expr: expr '-' . expr
 
-    $default  reduce using rule 8 (term)
+    MEM    shift, and go to state 4
+    EXP    shift, and go to state 5
+    LOG    shift, and go to state 6
+    SQRT   shift, and go to state 7
+    INTC   shift, and go to state 8
+    REALC  shift, and go to state 9
+    '-'    shift, and go to state 10
+    '('    shift, and go to state 11
+
+    expr   go to state 34
+    mcell  go to state 13
+
+
+state 23
+
+    7 expr: expr '*' . expr
+
+    MEM    shift, and go to state 4
+    EXP    shift, and go to state 5
+    LOG    shift, and go to state 6
+    SQRT   shift, and go to state 7
+    INTC   shift, and go to state 8
+    REALC  shift, and go to state 9
+    '-'    shift, and go to state 10
+    '('    shift, and go to state 11
+
+    expr   go to state 35
+    mcell  go to state 13
+
+
+state 24
+
+    8 expr: expr '/' . expr
+
+    MEM    shift, and go to state 4
+    EXP    shift, and go to state 5
+    LOG    shift, and go to state 6
+    SQRT   shift, and go to state 7
+    INTC   shift, and go to state 8
+    REALC  shift, and go to state 9
+    '-'    shift, and go to state 10
+    '('    shift, and go to state 11
+
+    expr   go to state 36
+    mcell  go to state 13
+
+
+state 25
+
+    9 expr: expr '^' . expr
+
+    MEM    shift, and go to state 4
+    EXP    shift, and go to state 5
+    LOG    shift, and go to state 6
+    SQRT   shift, and go to state 7
+    INTC   shift, and go to state 8
+    REALC  shift, and go to state 9
+    '-'    shift, and go to state 10
+    '('    shift, and go to state 11
+
+    expr   go to state 37
+    mcell  go to state 13
+
+
+state 26
+
+    2 line: line expr '\n' .
+
+    $default  reduce using rule 2 (line)
+
+
+state 27
+
+    4 expr: mcell '=' . expr
+
+    MEM    shift, and go to state 4
+    EXP    shift, and go to state 5
+    LOG    shift, and go to state 6
+    SQRT   shift, and go to state 7
+    INTC   shift, and go to state 8
+    REALC  shift, and go to state 9
+    '-'    shift, and go to state 10
+    '('    shift, and go to state 11
+
+    expr   go to state 38
+    mcell  go to state 13
+
+
+state 28
+
+   18 mcell: MEM '[' INTC . ']'
+
+    ']'  shift, and go to state 39
+
+
+state 29
+
+    5 expr: expr . '+' expr
+    6     | expr . '-' expr
+    7     | expr . '*' expr
+    8     | expr . '/' expr
+    9     | expr . '^' expr
+   13     | EXP '(' expr . ')'
+
+    '+'  shift, and go to state 21
+    '-'  shift, and go to state 22
+    '*'  shift, and go to state 23
+    '/'  shift, and go to state 24
+    '^'  shift, and go to state 25
+    ')'  shift, and go to state 40
+
+
+state 30
+
+    5 expr: expr . '+' expr
+    6     | expr . '-' expr
+    7     | expr . '*' expr
+    8     | expr . '/' expr
+    9     | expr . '^' expr
+   12     | LOG '(' expr . ')'
+
+    '+'  shift, and go to state 21
+    '-'  shift, and go to state 22
+    '*'  shift, and go to state 23
+    '/'  shift, and go to state 24
+    '^'  shift, and go to state 25
+    ')'  shift, and go to state 41
+
+
+state 31
+
+    5 expr: expr . '+' expr
+    6     | expr . '-' expr
+    7     | expr . '*' expr
+    8     | expr . '/' expr
+    9     | expr . '^' expr
+   14     | SQRT '(' expr . ')'
+
+    '+'  shift, and go to state 21
+    '-'  shift, and go to state 22
+    '*'  shift, and go to state 23
+    '/'  shift, and go to state 24
+    '^'  shift, and go to state 25
+    ')'  shift, and go to state 42
+
+
+state 32
+
+   11 expr: '(' expr ')' .
+
+    $default  reduce using rule 11 (expr)
+
+
+state 33
+
+    5 expr: expr . '+' expr
+    5     | expr '+' expr .
+    6     | expr . '-' expr
+    7     | expr . '*' expr
+    8     | expr . '/' expr
+    9     | expr . '^' expr
+
+    '*'  shift, and go to state 23
+    '/'  shift, and go to state 24
+    '^'  shift, and go to state 25
+
+    $default  reduce using rule 5 (expr)
+
+
+state 34
+
+    5 expr: expr . '+' expr
+    6     | expr . '-' expr
+    6     | expr '-' expr .
+    7     | expr . '*' expr
+    8     | expr . '/' expr
+    9     | expr . '^' expr
+
+    '*'  shift, and go to state 23
+    '/'  shift, and go to state 24
+    '^'  shift, and go to state 25
+
+    $default  reduce using rule 6 (expr)
+
+
+state 35
+
+    5 expr: expr . '+' expr
+    6     | expr . '-' expr
+    7     | expr . '*' expr
+    7     | expr '*' expr .
+    8     | expr . '/' expr
+    9     | expr . '^' expr
+
+    '^'  shift, and go to state 25
+
+    $default  reduce using rule 7 (expr)
+
+
+state 36
+
+    5 expr: expr . '+' expr
+    6     | expr . '-' expr
+    7     | expr . '*' expr
+    8     | expr . '/' expr
+    8     | expr '/' expr .
+    9     | expr . '^' expr
+
+    '^'  shift, and go to state 25
+
+    $default  reduce using rule 8 (expr)
+
+
+state 37
+
+    5 expr: expr . '+' expr
+    6     | expr . '-' expr
+    7     | expr . '*' expr
+    8     | expr . '/' expr
+    9     | expr . '^' expr
+    9     | expr '^' expr .
+
+    '^'  shift, and go to state 25
+
+    $default  reduce using rule 9 (expr)
+
+
+state 38
+
+    4 expr: mcell '=' expr .
+    5     | expr . '+' expr
+    6     | expr . '-' expr
+    7     | expr . '*' expr
+    8     | expr . '/' expr
+    9     | expr . '^' expr
+
+    '+'  shift, and go to state 21
+    '-'  shift, and go to state 22
+    '*'  shift, and go to state 23
+    '/'  shift, and go to state 24
+    '^'  shift, and go to state 25
+
+    $default  reduce using rule 4 (expr)
+
+
+state 39
+
+   18 mcell: MEM '[' INTC ']' .
+
+    $default  reduce using rule 18 (mcell)
+
+
+state 40
+
+   13 expr: EXP '(' expr ')' .
+
+    $default  reduce using rule 13 (expr)
+
+
+state 41
+
+   12 expr: LOG '(' expr ')' .
+
+    $default  reduce using rule 12 (expr)
+
+
+state 42
+
+   14 expr: SQRT '(' expr ')' .
+
+    $default  reduce using rule 14 (expr)
