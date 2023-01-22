@@ -1,5 +1,3 @@
-/* CntrlLの字句の定義（CntrlL.l） */
-
 %{
 #include "y.tab.h"
 #include "../VSM.h"
