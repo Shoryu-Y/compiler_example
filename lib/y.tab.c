@@ -88,7 +88,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "express.y"
+#line 1 "./source/express.y"
 
     #include <stdio.h>
     #include <math.h>
@@ -119,7 +119,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 13 "express.y"
+#line 13 "./source/express.y"
 {
     int     ival;
     double  rval;
@@ -1358,87 +1358,87 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 34 "express.y"
+#line 34 "./source/express.y"
     { printf("result: %f\n", (yyvsp[(2) - (3)].rval)); }
     break;
 
   case 4:
-#line 35 "express.y"
+#line 35 "./source/express.y"
     { yyerrok; }
     break;
 
   case 5:
-#line 38 "express.y"
+#line 38 "./source/express.y"
     { (yyval.rval) = Memory[(yyvsp[(1) - (3)].ival)] = (yyvsp[(3) - (3)].rval); }
     break;
 
   case 6:
-#line 39 "express.y"
+#line 39 "./source/express.y"
     { (yyval.rval) = (yyvsp[(1) - (3)].rval) + (yyvsp[(3) - (3)].rval); }
     break;
 
   case 7:
-#line 40 "express.y"
+#line 40 "./source/express.y"
     { (yyval.rval) = (yyvsp[(1) - (3)].rval) - (yyvsp[(3) - (3)].rval); }
     break;
 
   case 8:
-#line 41 "express.y"
+#line 41 "./source/express.y"
     { (yyval.rval) = (yyvsp[(1) - (3)].rval) * (yyvsp[(3) - (3)].rval); }
     break;
 
   case 9:
-#line 42 "express.y"
+#line 42 "./source/express.y"
     { (yyval.rval) = (yyvsp[(1) - (3)].rval) / (yyvsp[(3) - (3)].rval); }
     break;
 
   case 10:
-#line 43 "express.y"
+#line 43 "./source/express.y"
     { (yyval.rval) = pow((yyvsp[(1) - (3)].rval), (yyvsp[(3) - (3)].rval)); }
     break;
 
   case 11:
-#line 44 "express.y"
+#line 44 "./source/express.y"
     { (yyval.rval) = -(yyvsp[(2) - (2)].rval); }
     break;
 
   case 12:
-#line 45 "express.y"
+#line 45 "./source/express.y"
     { (yyval.rval) = (yyvsp[(2) - (3)].rval); }
     break;
 
   case 13:
-#line 46 "express.y"
+#line 46 "./source/express.y"
     { (yyval.rval) = log((yyvsp[(3) - (4)].rval)); }
     break;
 
   case 14:
-#line 47 "express.y"
+#line 47 "./source/express.y"
     { (yyval.rval) = exp((yyvsp[(3) - (4)].rval)); }
     break;
 
   case 15:
-#line 48 "express.y"
+#line 48 "./source/express.y"
     { (yyval.rval) = sqrt((yyvsp[(3) - (4)].rval)); }
     break;
 
   case 16:
-#line 49 "express.y"
+#line 49 "./source/express.y"
     { (yyval.rval) = Memory[(yyvsp[(1) - (1)].ival)]; }
     break;
 
   case 17:
-#line 50 "express.y"
+#line 50 "./source/express.y"
     { (yyval.rval) = (double)(yyvsp[(1) - (1)].ival); }
     break;
 
   case 18:
-#line 51 "express.y"
+#line 51 "./source/express.y"
     { (yyval.rval) = (yyvsp[(1) - (1)].rval); }
     break;
 
   case 19:
-#line 54 "express.y"
+#line 54 "./source/express.y"
     { if ((yyvsp[(3) - (4)].ival)>=0 && (yyvsp[(3) - (4)].ival)<M_SIZE)
                                                 (yyval.ival) = (yyvsp[(3) - (4)].ival);
                                               else {
@@ -1664,7 +1664,7 @@ yyreturn:
 }
 
 
-#line 62 "express.y"
+#line 62 "./source/express.y"
 
 
 #include <ctype.h>

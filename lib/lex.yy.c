@@ -483,14 +483,13 @@ int yy_flex_debug = 0;
 
 char yytext[YYLMAX];
 char *yytext_ptr;
-#line 1 "express.l"
-#line 2 "express.l"
-#include "express.tab.h"
+#line 1 "./source/express.l"
+#line 2 "./source/express.l"
 #include <string.h>
 #include <stdio.h>
 #include "y.tab.h"
+#line 491 "lex.yy.c"
 #line 492 "lex.yy.c"
-#line 493 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -707,9 +706,9 @@ YY_DECL
 		}
 
 	{
-#line 15 "express.l"
+#line 14 "./source/express.l"
 
-#line 712 "lex.yy.c"
+#line 711 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -778,58 +777,58 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 16 "express.l"
+#line 15 "./source/express.l"
 
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 17 "express.l"
+#line 16 "./source/express.l"
 { return(yytext[0]); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 18 "express.l"
+#line 17 "./source/express.l"
 { return(MEM); }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 19 "express.l"
+#line 18 "./source/express.l"
 { return(EXP); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 20 "express.l"
+#line 19 "./source/express.l"
 { return(LOG); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 21 "express.l"
+#line 20 "./source/express.l"
 { return(SQRT); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 22 "express.l"
+#line 21 "./source/express.l"
 { sscanf(yytext, "%d", &yylval);
                           return(INTC); }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 24 "express.l"
+#line 23 "./source/express.l"
 { sscanf(yytext, "%lf", &yylval);
                           return(REALC); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 26 "express.l"
+#line 25 "./source/express.l"
 { fprintf(stderr, "Illegal charcter %c, ignored\n", yytext[0]); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 28 "express.l"
+#line 27 "./source/express.l"
 ECHO;
 	YY_BREAK
-#line 832 "lex.yy.c"
+#line 831 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1846,5 +1845,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 28 "express.l"
+#line 27 "./source/express.l"
 
