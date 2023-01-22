@@ -51,13 +51,13 @@ static void PrintIns(int loc) /* 命令の記号編集と */
   }
 }
 
-void SetPC(int Addr) /* プログラムカウンタ */
-{                    /* のセット */
+void SetPC(int Addr) /* プログラムカウンタのセット */
+{
   Pctr = Addr;
 }
 
-int PC(void) /* プログラムカウンタ */
-{            /* の値の読出し */
+int PC(void) /* プログラムカウンタの値の読出し */
+{
   return Pctr;
 }
 
